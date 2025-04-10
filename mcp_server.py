@@ -97,6 +97,7 @@ def ioehub_mqtt_get_temperature() -> float:
 
 # Run the server if the script is executed directly
 if __name__ == "__main__":
+    '''
     # Test the temperature function before starting the server
     print("Testing MQTT temperature function...")
     
@@ -109,6 +110,6 @@ if __name__ == "__main__":
         print(f"Current temperature: {temperature}°C")
     except Exception as e:
         print(f"Error testing temperature function: {e}")
-    
+    '''
     print("Starting MCP server...")
     mcp.run(transport="stdio") 
