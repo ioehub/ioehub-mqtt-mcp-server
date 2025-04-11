@@ -1,5 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 from datetime import datetime
+
 import paho.mqtt.client as mqtt
 import json
 import time
@@ -97,6 +98,46 @@ def ioehub_mqtt_get_temperature() -> str:
     
     # Return the latest temperature reading as fallback
     return str(latest_temperature)
+
+@mcp.tool()
+def ioehub_mqtt_set_led(pin: int = 0, state: int = 0) -> bool:
+    """
+    Sets the LED state via MQTT
+    
+    :param pin: The LED pin number (default: 0)
+    :param state: The state to set (1 for ON, 0 for OFF)
+    :return: True if the operation was successful
+    """
+    global mqtt_response_received, mqtt_response_data
+    
+    # Reset response flags
+    mqtt_response_received = False
+    mqtt_response_data = None
+    
+    # Send LED control command via MQTT using the specified JSON format
+    request = {
+        "function": "ioehub_mqtt_set_led",
+        "params": {
+            "pin": pin,
+            "state": state
+        }
+    }
+    
+    mqtt_client.publish(MQTT_PUBLISH_TOPIC, json.dumps(request))
+    
+    # Wait for response (with timeout)
+    timeout = time.time() + 5.0  # 5 seconds timeout
+    while not mqtt_response_received and time.time() < timeout:
+        time.sleep(0.1)
+    
+    # Check if we received a valid response
+    if mqtt_response_received and mqtt_response_data and 'result' in mqtt_response_data:
+        # Assume result is a boolean success flag or can be converted to boolean
+        return bool(mqtt_response_data['result'])
+    
+    # Return False as fallback if no valid response
+    return False
+
 # Run the server if the script is executed directly
 if __name__ == "__main__":
     '''
