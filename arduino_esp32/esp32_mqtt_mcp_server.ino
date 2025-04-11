@@ -11,13 +11,13 @@
 //const char* myssid = "candy24G";
 //const char* mypassword = "****";
 // WiFi
-const char *ssid = "candy24G"; // Enter your WiFi name
-const char *password = "****";  // Enter WiFi password
+const char *ssid = "IoEHubSSID"; // Enter your WiFi name
+const char *password = "password";  // Enter WiFi password
 
 // MQTT Broker
 const char *mqtt_broker = "172.30.1.100";
 const char *topic = "ioehub/mcp/command";
-const char *mqtt_username = "emqx";
+const char *mqtt_username = "ioehub";
 const char *mqtt_password = "public";
 //const int mqtt_port = 9883;
 const int mqtt_port = 1883;
