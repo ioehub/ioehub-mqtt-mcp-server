@@ -8,8 +8,6 @@
 #include <ESP32Servo.h>
 
 
-//const char* myssid = "candy24G";
-//const char* mypassword = "****";
 // WiFi
 const char *ssid = "IoEHubSSID"; // Enter your WiFi name
 const char *password = "password";  // Enter WiFi password
