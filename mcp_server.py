@@ -140,19 +140,5 @@ def ioehub_mqtt_set_led(pin: int = 0, state: int = 0) -> bool:
 
 # Run the server if the script is executed directly
 if __name__ == "__main__":
-    '''
-    # Test the temperature function before starting the server
-    print("Testing MQTT temperature function...")
-    
-    # Allow time for MQTT connection to establish
-    time.sleep(2)
-    
-    try:
-        # Call the function directly to test it
-        temperature = ioehub_mqtt_get_temperature()
-        print(f"Current temperature: {temperature}°C")
-    except Exception as e:
-        print(f"Error testing temperature function: {e}")
-    '''
     print("Starting MCP server...")
     mcp.run(transport="stdio") 
