@@ -17,11 +17,12 @@ MQTT_SUBSCRIBE_TOPIC = "ioehub/mcp/response"
 mcp = FastMCP()
 
 # Global variable to store the latest temperature reading
-latest_temperature = 25.5
+latest_temperature = 0.0
 mqtt_response_received = False
 mqtt_response_data = None
 
 # MQTT client callbacks
+
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with result code {rc}")
     client.subscribe(MQTT_SUBSCRIBE_TOPIC)
@@ -59,9 +60,10 @@ mqtt_thread = threading.Thread(target=connect_mqtt)
 mqtt_thread.daemon = True
 mqtt_thread.start()
 
+
 # Define the tool using the @mcp.tool() decorator
 @mcp.tool()
-def ioehub_mqtt_get_temperature() -> float:
+def ioehub_mqtt_get_temperature() -> str:
     """
     Returns current temperature from MQTT sensor
     
@@ -90,11 +92,11 @@ def ioehub_mqtt_get_temperature() -> float:
     
     # Check if we received a valid response
     if mqtt_response_received and mqtt_response_data and 'result' in mqtt_response_data:
-        return float(mqtt_response_data['result'])
+        return str(mqtt_response_data['result'])
+    
     
     # Return the latest temperature reading as fallback
-    return latest_temperature
-
+    return str(latest_temperature)
 # Run the server if the script is executed directly
 if __name__ == "__main__":
     '''
