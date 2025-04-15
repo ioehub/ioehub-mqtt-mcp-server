@@ -1,2 +1,3 @@
 **/*.bak
 __pycache__/
+replace-text.txt
