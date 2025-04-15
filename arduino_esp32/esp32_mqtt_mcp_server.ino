@@ -24,7 +24,6 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 void callback(char* topic, byte* payload, unsigned int length);
 
-
 //DHT22 sensor;
  
 void setup() 
